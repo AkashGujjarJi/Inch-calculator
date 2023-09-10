@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calculator-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        p {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+
+        .calculator {
+            width: 90%;
+            max-width: 320px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .display {
+            font-size: 24px;
+            text-align: right;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            font-size: 20px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" readonly>
+        <div class="buttons">
+            <div class="button" onclick="appendToDisplay('7')">7</div>
+            <div class="button" onclick="appendToDisplay('8')">8</div>
+            <div class="button" onclick="appendToDisplay('9')">9</div>
+            <div class="button" onclick="appendToDisplay('/')">/</div>
+            <div class="button" onclick="appendToDisplay('4')">4</div>
+            <div class="button" onclick="appendToDisplay('5')">5</div>
+            <div class="button" onclick="appendToDisplay('6')">6</div>
+            <div class="button" onclick="appendToDisplay('*')">*</div>
+            <div class="button" onclick="appendToDisplay('1')">1</div>
+            <div class="button" onclick="appendToDisplay('2')">2</div>
+            <div class="button" onclick="appendToDisplay('3')">3</div>
+            <div class="button" onclick="appendToDisplay('-')">-</div>
+            <div class="button" onclick="appendToDisplay('0')">0</div>
+            <div class="button" onclick="appendToDisplay('.')">.</div>
+            <div class="button" onclick="clearEntry()">CE</div>
+            <div class="button" onclick="clearDisplay()">C</div>
+            <div class="button" onclick="backspace()">&#9003;</div>
+            <div class="button" onclick="appendToDisplay('+')">+</div>
+            <div class="button" onclick="calculateResult()">=</div>
+        </div>
+    </div>
+
+    <div class="calculator-container">
+        <h2>Custom Calculator</h2>
+        <label for="inputX">Enter inches (x):</label>
+        <input type="number" id="inputX">
+        <label for="inputY">Enter unit (y):</label>
+        <input type="number" id="inputY">
+        <button onclick="calculate()">Calculate</button>
+        <p>Result:</p>
+        <p id="customResult"></p>
+    </div>
+
+    <script>
+
+
+        function calculate() {
+            const x = parseFloat(document.getElementById("inputX").value);
+            const y = parseFloat(document.getElementById("inputY").value);
+
+            if (!isNaN(x) && !isNaN(y) && y !== 0) {
+                const a = Math.floor(x / y);
+                const b = Math.round((x / y - a) * 8);
+
+                document.getElementById("customResult").innerHTML = `${a} inches and ${b} eighths of an inch`;
+            } else {
+                document.getElementById("customResult").innerHTML = "Invalid input. Please enter valid numbers.";
+            }
+        }
+
+
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearEntry() {
+            const currentValue = document.getElementById('display').value;
+            document.getElementById('display').value = currentValue.slice(0, -1);
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function backspace() {
+            const currentValue = document.getElementById('display').value;
+            document.getElementById('display').value = currentValue.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                const expression = document.getElementById('display').value;
+                const result = eval(expression);
+                if (isNaN(result) || !isFinite(result)) {
+                    document.getElementById('display').value = 'Error';
+                } else {
+                    document.getElementById('display').value = result;
+                }
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        // Keyboard support
+        // document.addEventListener('keydown', (event) => {
+        //     const key = event.key;
+        //     if (/[\d+\-*/.=]|Enter|Backspace/.test(key)) {
+        //         event.preventDefault();
+        //         if (key === '=' || key === 'Enter') {
+        //             calculateResult();
+        //         } else if (key === 'C' || key === 'c') {
+        //             clearDisplay();
+        //         } else if (key === 'Backspace') {
+        //             backspace();
+        //         } else if (key === 'E' || key === 'e') {
+        //             clearEntry();
+        //         } else {
+        //             appendToDisplay(key);
+        //         }
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
