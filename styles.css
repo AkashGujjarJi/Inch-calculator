@@ -41,11 +41,14 @@ input[type="number"] {
 
 #theme-toggle {
     position: absolute;
+    border: none;
+    background-color: var(--bg-color);
     left: 22px;
     top: 22px;
     height: 10px;
     font-size: 8px;
 }
+
 
 .button-c {
     background-color: #007bff;
