@@ -2,14 +2,14 @@
     "name": "Inch to Soot Calculator",
     "short_name": "Inch Calculator",
     "description": "This is an webpage calculator for some simple mathmatical problems and a converter for converting the Inch unit into Soot (1/8th of an Inch) and a divider for How many times small you want your measurement.",
-    "start_url": "/",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
     "icons": [
       {
-        "src": "tape.png",
-        "sizes": "192x192",
+        "src": "icon.png",
+        "sizes": "512x512",
         "type": "image/png"
       }
     ]
