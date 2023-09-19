@@ -39,7 +39,7 @@ input[type="number"] {
     position: absolute;
     border: none;
     background-color: var(--bg-color);
-    left: 22px;
+    left: 5px;
     top: 22px;
     height: 10px;
     font-size: 8px;
